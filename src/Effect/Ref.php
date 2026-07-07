@@ -5,7 +5,7 @@ $read = function($ref) use (&$read) { return function() use(&$ref) { return $ref
 $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$_new) {
+        return function(...$more) use ($__args, &$modifyImpl) {
 
             return $modifyImpl(...array_merge($__args, $more));
         };
@@ -15,7 +15,7 @@ $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
 $write = function($val, $ref = null) use (&$write) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$read) {
+        return function(...$more) use ($__args, &$write) {
 
             return $write(...array_merge($__args, $more));
         };

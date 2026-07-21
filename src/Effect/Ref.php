@@ -1,6 +1,13 @@
 <?php
 
 $_new = function($val) use (&$_new) { return function() use(&$val) { return (object)['value' => $val]; }; };
+$newWithSelf = function($f) use (&$newWithSelf) {
+    return function() use (&$f) {
+        $ref = (object)['value' => null];
+        $ref->value = $f($ref);
+        return $ref;
+    };
+};
 $read = function($ref) use (&$read) { return function() use(&$ref) { return $ref->value; }; };
 $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
     if (\func_num_args() < 2) {
@@ -24,6 +31,7 @@ $write = function($val, $ref = null) use (&$write) {
 };
 
 $exports['_new'] = $_new;
+$exports['newWithSelf'] = $newWithSelf;
 $exports['read'] = $read;
 $exports['modifyImpl'] = $modifyImpl;
 $exports['write'] = $write;

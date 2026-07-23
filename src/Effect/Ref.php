@@ -1,14 +1,14 @@
 <?php
 
-$_new = function($val) use (&$_new) { return function() use(&$val) { return (object)['value' => $val]; }; };
-$newWithSelf = function($f) use (&$newWithSelf) {
-    return function() use (&$f) {
+$_new = function($val) { return function() use($val) { return (object)['value' => $val]; }; };
+$newWithSelf = function($f) {
+    return function() use ($f) {
         $ref = (object)['value' => null];
         $ref->value = $f($ref);
         return $ref;
     };
 };
-$read = function($ref) use (&$read) { return function() use(&$ref) { return $ref->value; }; };
+$read = function($ref) { return function() use($ref) { return $ref->value; }; };
 $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
     if (\func_num_args() < 2) {
         $__args = \func_get_args();
@@ -17,7 +17,7 @@ $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
             return $modifyImpl(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$f, &$ref) { $t = $f($ref->value); $ref->value = $t->state; return $t->value; };
+    return function() use($f, $ref) { $t = $f($ref->value); $ref->value = $t->state; return $t->value; };
 };
 $write = function($val, $ref = null) use (&$write) {
     if (\func_num_args() < 2) {
@@ -27,7 +27,7 @@ $write = function($val, $ref = null) use (&$write) {
             return $write(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$val, &$ref) { $ref->value = $val; return null; };
+    return function() use($val, $ref) { $ref->value = $val; return null; };
 };
 
 $exports['_new'] = $_new;

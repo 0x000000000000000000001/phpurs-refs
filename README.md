@@ -1,5 +1,7 @@
 # phpurs-refs
 
+> PHPurs checkout: see the [PHP library development guide](https://github.com/0x000000000000000000001/phpurs/blob/main/docs/libraries.md) for the TAST toolchain, FFI conventions and validation commands. Run `./bin/test` from this package with the PHP toolchain prepared.
+
 [![Latest release](http://img.shields.io/github/release/purescript/purescript-refs.svg)](https://github.com/purescript/purescript-refs/releases)
 [![Build status](https://github.com/purescript/purescript-refs/workflows/CI/badge.svg?branch=master)](https://github.com/purescript/purescript-refs/actions?query=workflow%3ACI+branch%3Amaster)
 [![Pursuit](https://pursuit.purescript.org/packages/purescript-refs/badge)](https://pursuit.purescript.org/packages/purescript-refs)
